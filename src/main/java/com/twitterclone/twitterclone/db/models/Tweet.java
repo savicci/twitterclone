@@ -1,20 +1,37 @@
 package com.twitterclone.twitterclone.db.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 public class Tweet {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Size(min = 10, max = 280)
+    @NotNull
     private String text;
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
     private long userId;
+
+    public Tweet() {
+    }
+
+    public Tweet(String text, LocalDateTime createdAt, long userId) {
+        this.text = text;
+        this.createdAt = createdAt;
+        this.userId = userId;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,28 +1,60 @@
 package com.twitterclone.twitterclone.db.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.NaturalId;
+import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank
+    @Column(unique = true)
+    @Size(max = 20)
     private String username;
+
+    @NotBlank
+    @Size(max = 100)
     private String password;
 
+    @NaturalId
+    @NotBlank
     @Email
     private String emailAddress;
 
+    @NotBlank
+    @Size(max = 20)
     private String nick;
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @Column(columnDefinition = "BIGINT default '0'")
     private long followersCount;
+
+    @Column(columnDefinition = "BIGINT default '0'")
     private long followingCount;
+
+    public User() {
+    }
+
+    public User(String nick, String username, String emailAddress, String password, long followersCount, long followingCount) {
+        this.nick = nick;
+        this.username = username;
+        this.emailAddress = emailAddress;
+        this.password = password;
+        this.followersCount = followersCount;
+        this.followingCount = followingCount;
+    }
 
     @Override
     public boolean equals(Object o) {

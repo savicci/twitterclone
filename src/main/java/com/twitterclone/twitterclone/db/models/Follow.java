@@ -2,17 +2,26 @@ package com.twitterclone.twitterclone.db.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
 public class Follow {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long followId;
 
     private long followerId;
     private long followingId;
+
+    public Follow() {
+    }
+
+    public Follow(long followerId, long followingId) {
+        this.followerId = followerId;
+        this.followingId = followingId;
+    }
 
     @Override
     public boolean equals(Object o) {
