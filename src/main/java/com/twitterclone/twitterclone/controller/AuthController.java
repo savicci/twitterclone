@@ -2,11 +2,11 @@ package com.twitterclone.twitterclone.controller;
 
 import com.twitterclone.twitterclone.db.models.User;
 import com.twitterclone.twitterclone.db.repositories.UserRepository;
+import com.twitterclone.twitterclone.security.JwtTokenProvider;
 import com.twitterclone.twitterclone.security.payload.ApiResponse;
 import com.twitterclone.twitterclone.security.payload.JwtAuthenticationResponse;
 import com.twitterclone.twitterclone.security.payload.LoginRequest;
 import com.twitterclone.twitterclone.security.payload.SignUpRequest;
-import com.twitterclone.twitterclone.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,8 +69,7 @@ public class AuthController {
             return new ResponseEntity<>(new ApiResponse(false, "Email Address already in use!"),
                     HttpStatus.BAD_REQUEST);
         }
-
-        // Creating user's account
+        
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
                 signUpRequest.getEmail(), signUpRequest.getPassword(), 0, 0);
 

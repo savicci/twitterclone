@@ -56,7 +56,7 @@ public class TweetController {
     }
 
     @RequestMapping("/dashboard")
-    private ResponseEntity<?>getAllTweets(@RequestBody DashboardTweetRequest request) {
+    private ResponseEntity<?> getAllTweets(@RequestBody DashboardTweetRequest request) {
         try {
             User user = userRepository.findByUsername(request.getUsername()).orElseThrow(IllegalArgumentException::new);
             List<Follow> following = followRepository.findAllByFollowerId(user.getId());
@@ -68,7 +68,7 @@ public class TweetController {
             return ResponseEntity.ok(tweets.keySet().stream()
                     .map(key -> new TweetResponse(tweets.get(key).getText(), tweets.get(key).getCreatedAt(), userRepository.findById(key).get().getNick()))
                     .collect(Collectors.toList()));
-        }catch(IllegalArgumentException e ){
+        } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new BadRequestException("Coult not find user with given username"), HttpStatus.BAD_REQUEST);
         }
     }
