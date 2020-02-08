@@ -8,5 +8,5 @@ import java.util.List;
 public interface TweetRepository extends CrudRepository<Tweet, Long> {
     Tweet findById(long id);
 
-    List<Tweet> findAllByIdIn(List<Long> userIds);
+    List<Tweet> findAllByUserIdIn(List<Long> userIds);
 }

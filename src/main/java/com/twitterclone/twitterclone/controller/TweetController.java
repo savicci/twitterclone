@@ -61,12 +61,12 @@ public class TweetController {
             User user = userRepository.findByUsername(request.getUsername()).orElseThrow(IllegalArgumentException::new);
             List<Follow> following = followRepository.findAllByFollowerId(user.getId());
 
-            Map<Long, Tweet> tweets = tweetRepository.findAllByIdIn(following.stream().map(Follow::getFollowingId).collect(Collectors.toList()))
+            Map<Long, Tweet> tweets = tweetRepository.findAllByUserIdIn(following.stream().map(Follow::getFollowingId).collect(Collectors.toList()))
                     .stream()
                     .collect(Collectors.toMap(Tweet::getId, Function.identity()));
 
             return ResponseEntity.ok(tweets.keySet().stream()
-                    .map(key -> new TweetResponse(tweets.get(key).getText(), tweets.get(key).getCreatedAt(), userRepository.findById(key).get().getNick()))
+                    .map(key -> new TweetResponse(tweets.get(key).getText(), tweets.get(key).getCreatedAt(), userRepository.findById(tweets.get(key).getUserId()).get().getNick()))
                     .collect(Collectors.toList()));
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new BadRequestException("Coult not find user with given username"), HttpStatus.BAD_REQUEST);
