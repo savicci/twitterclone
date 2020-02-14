@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {getTweets} from "../utils/APIUtils";
-import {Jumbotron} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import styled from "styled-components";
 
 const MainPageWrapper = styled.div`
@@ -70,6 +70,18 @@ const Wrapper = styled.div`
 }
 `;
 
+const ContainerWrapper = styled.div`
+{
+    border-top: solid 1px grey;
+    border-bottom: solid 1px grey;
+    padding: 4px; 
+    margin: 4px;
+    background-color: #f8f9fa;
+}
+
+
+`;
+
 class Tweet extends Component {
     constructor(props) {
         super(props);
@@ -77,21 +89,27 @@ class Tweet extends Component {
 
     render() {
         return (
-            <Jumbotron>
-                <Wrapper>
-                    <div>
-                        User
-                        <h4>{this.props.tweet.owner}</h4>
+            <ContainerWrapper>
+                <Container fluid>
+                    <Wrapper>
+                        <div>
+                            Nick
+                            <h4>{this.props.tweet.nick}</h4>
+                        </div>
+                        <div>
+                            Username
+                            <h4>@{this.props.tweet.username}</h4>
+                        </div>
+                        <div>
+                            Created at
+                            <h4>{this.props.tweet.createdAt}</h4>
+                        </div>
+                    </Wrapper>
+                    <div style={{display: "flex", justifyContent: "center", marginTop: "8px"}}>
+                        <p>{this.props.tweet.text}</p>
                     </div>
-                    <div>
-                        Data stworzenia
-                        <h4>{this.props.tweet.createdAt}</h4>
-                    </div>
-                </Wrapper>
-                <div style={{display: "flex", justifyContent: "center"}}>
-                    <p>{this.props.tweet.text}</p>
-                </div>
-            </Jumbotron>
+                </Container>
+            </ContainerWrapper>
         );
     }
 }

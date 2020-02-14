@@ -9,6 +9,7 @@ import AppHeader from "./components/AppHeader";
 import MainPage from "./components/MainPage";
 import Login from "./components/Login";
 import PrivateRoute from "./components/PrivateRoute";
+import AddTweet from "./components/AddTweet";
 
 class App extends Component {
     constructor(props) {
@@ -74,6 +75,7 @@ class App extends Component {
                 {this.state.currentUser && <AppHeader isAuthenticated={this.state.isAuthenticated}
                                                       currentUser={this.state.currentUser}
                                                       onLogout={this.handleLogout}/>}
+                {this.state.currentUser && <AddTweet user={this.state.currentUser}/>}
 
                 <Switch>
                     <PrivateRoute authenticated={this.state.isAuthenticated} exact path="/" component={MainPage}

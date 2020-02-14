@@ -66,7 +66,9 @@ public class TweetController {
                     .collect(Collectors.toMap(Tweet::getId, Function.identity()));
 
             return ResponseEntity.ok(tweets.keySet().stream()
-                    .map(key -> new TweetResponse(tweets.get(key).getText(), tweets.get(key).getCreatedAt(), userRepository.findById(tweets.get(key).getUserId()).get().getNick()))
+                    .map(key -> new TweetResponse(tweets.get(key).getText(), tweets.get(key).getCreatedAt(),
+                            userRepository.findById(tweets.get(key).getUserId()).get().getUsername(),
+                            userRepository.findById(tweets.get(key).getUserId()).get().getNick()))
                     .collect(Collectors.toList()));
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(new BadRequestException("Coult not find user with given username"), HttpStatus.BAD_REQUEST);

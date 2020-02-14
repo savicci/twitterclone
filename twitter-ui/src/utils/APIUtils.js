@@ -49,3 +49,11 @@ export function getTweets(username) {
         body: JSON.stringify(username)
     })
 }
+
+export function addTweet(req) {
+    return request({
+        url: API_BASE_URL + "/tweet/add",
+        method: 'POST',
+        body: JSON.stringify(req)
+    })
+}

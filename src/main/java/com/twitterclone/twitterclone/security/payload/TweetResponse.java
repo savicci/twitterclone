@@ -5,12 +5,22 @@ import java.time.LocalDateTime;
 public class TweetResponse {
     private String text;
     private LocalDateTime createdAt;
-    private String owner;
+    private String username;
+    private String nick;
 
-    public TweetResponse(String text, LocalDateTime createdAt, String owner) {
+    public TweetResponse(String text, LocalDateTime createdAt, String username, String nick) {
         this.text = text;
         this.createdAt = createdAt;
-        this.owner = owner;
+        this.username = username;
+        this.nick = nick;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
     public String getText() {
@@ -29,11 +39,11 @@ public class TweetResponse {
         this.createdAt = createdAt;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getUsername() {
+        return username;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
